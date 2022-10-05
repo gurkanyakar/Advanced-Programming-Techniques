@@ -1,0 +1,29 @@
+
+body{
+    background-color: darksalmon;
+}
+.styled-table thead tr {
+    background-color: green;
+    color: #ffffff;
+    font-size: 2em;
+    font-family: sans-serif;
+}
+
+.styled-table tbody{
+    font-size: 1.6em;
+    font-family: monospace;
+    text-align: center;
+}
+.styled-table tbody tr:nth-child(odd) {
+    background-color: beige;
+}
+.styled-table tbody tr:nth-child(odd):hover {
+    background-color: red;
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background-color: bisque;
+}
+.styled-table tbody tr:nth-child(even):hover {
+    background-color: aqua;
+}
