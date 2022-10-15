@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>TC Kimlik/IBAN Doğrula </title>
+    <title>IBAN Doğrula </title>
 
   <style> /* CSS code in use */
     body { max-width: 440px; }
@@ -18,7 +17,7 @@
 
 <h2 id=title></h2>
 <input type="text" id="iban">
-<button onClick="increment()" >97 Arttır</button>
+<button onClick=increment() id=incrementbutton >97 Arttır</button>
 <p id=out></p>
 <hr />
 <b>Sample code</b>
@@ -28,7 +27,43 @@
 
 <!-- <script src="../util/Util.js"></script> -->
 <script>
-
+//alert("TR910006701000000051797236");
+function increment() {
+    ibanArray = []
+    loc =''
+    let c = iban.value
+    c = c.replaceAll(/\s/g, '')
+    for(let i=0; i<c.length; i++) {
+        if (c[i] >= '0' && c[i] <= '9') {
+            ibanArray.push(c[i]);
+        }else{
+            loc = loc + c[i]
+        }
+        
+    }
+    tempindex=0
+    for(let i=ibanArray.length-1; i>=0; i--) {
+        if (ibanArray[i] == '9') {
+            tempindex = i+1
+            break;
+    }
+    
+    }
+    intValue = ''
+    for(let i=tempindex; i<ibanArray.length; i++) {
+        intValue = intValue + ibanArray[i]
+    }
+    intValue = Number(intValue)
+    result = ''
+    for(let i=0; i<tempindex; i++) {
+        result = result + ibanArray[i]
+    }
+    result = result + (intValue+97)
+    result = loc + result
+    //console.log(result)
+    document.getElementById("iban").value = result
+    report()
+}
 function verifyIBAN(s) {
     const ASCII_0 = 48, ASCII_A = 65;
     if (typeof s != 'string') s = String(s)
@@ -60,39 +95,10 @@ function report() {
     out.innerText += '\n'+v+' '+t
     console.log(v, t)
 }
-function increment() {
-    ibanArray = []
-    let c = document.getElementById("iban").value
-    for(let i=0; i<c.length; i++) {
-        if (c[i] >= '0' && c[i] <= '9') {
-            ibanArray.push(c[i]);
-        }
-    }
-    console.log(ibanArray)
 
-    let flag = ibanArray.length-2;
-    for(let i=ibanArray.length-3; i>=0; i--) {
-        if (ibanArray[i] != '9') {
-            flag = i
-            break;
-        }
-        console.log(flag)
-    }
-
-    ibanArray[flag] = String(Number(ibanArray[flag]) + 1)
-    for(let i=flag+1; i<ibanArray.length-2; i++) {
-        ibanArray[i] = '0'
-    }
-    ibanArray[ibanArray.length-1] = (parseInt(ibanArray[ibanArray.length-1])+ 7) % 10
-    ibanArray[ibanArray.length-2] = (parseInt(ibanArray[ibanArray.length-2]) + 9) % 10
-
-    console.log(ibanArray)
-    document.getElementById("iban").value = ibanArray.join('')
-}
     title.innerText = document.title
-    sample.innerText = verifyIBAN+'\n'+report
-    iban.onchange = report
-    //iban.value = 'TR320010009999901234569990'
+    sample.innerText = increment+'\n'+report+'\n'+verifyIBAN
+    //iban.onchange = report
     
     //report()
 </script>
