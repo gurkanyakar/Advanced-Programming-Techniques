@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="../images/icon192.png" />
+    <title>List of Objects</title>
+
+    <style>
+      body {
+        max-width: 500px;
+      }
+      #inp {
+        white-space: pre-wrap;
+      }
+      #sample {
+        overflow-x: auto;
+      }
+      #out {
+        color: blue;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2 id="title"></h2>
+    <b
+      >Text input &emsp;
+      <input type="button" id="convert" value="Convert" onclick="toList()" />
+    </b>
+    <p>
+      <textarea id="inp" rows="10" cols="50"></textarea>
+    </p>
+    <b>JSON output</b>
+    <pre id="out"></pre>
+    <hr />
+    <b>Sample code</b>
+    <pre id="sample"></pre>
+    <hr />
+    <p>
+      Ref:
+      <a
+        href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters#Examples"
+        target="NewTab"
+        >Rest Parameters</a
+      >
+    </p>
+
+    <script>
+      myList = [];
+      ("use strict");
+      function toList(str) {
+        function toObject(x) {
+          let b = {};
+          for (let [i, s] of x.split("\t").entries())
+            b[keys[i]] = isNaN(s) ? s : Number(s);
+          return b;
+        }
+        if (str) inp.value = str;
+        else str = inp.value;
+        let [d0, ...data] = str.split("\n");
+        let keys = d0.split("\t");
+        console.log("Keys:", keys);
+        let a = data.map(toObject);
+        out.innerText = JSON.stringify(a, "", 2);
+        console.table(a);
+        myList = a;
+        return a;
+      }
+      RANKS = `Team	W	L	WinRate
+MIL	60	22	0,731707317073171
+TOR	58	24	0,707317073170732
+GSW	57	25	0,695121951219512
+DEN	54	28	0,658536585365854
+HOU	53	29	0,646341463414634
+POR	53	29	0,646341463414634
+PHI	51	31	0,621951219512195
+UTA	50	32	0,609756097560976
+BOS	49	33	0,597560975609756
+OKC	49	33	0,597560975609756
+IND	48	34	0,585365853658537
+LAC	48	34	0,585365853658537
+SAS	48	34	0,585365853658537
+BRK	42	40	0,51219512195122
+ORL	42	40	0,51219512195122
+DET	41	41	0,5`;
+
+      title.innerText = document.title;
+      sample.innerText = toList;
+      inp.value = RANKS;
+      //toList()  //array of objects
+    </script>
+  </body>
+</html>
