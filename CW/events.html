@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link
+      rel="icon"
+      href="https://blm-fsmvu.github.io/305/images/icon192.png"
+    />
+    <title>CW4</title>
+
+    <style>
+      /* CSS comment */
+      body {
+        max-width: 440px;
+      }
+      #url {
+        width: 190px;
+      }
+      span,
+      #url {
+        color: blue;
+      }
+    </style>
+  </head>
+
+  <body
+    ononline="onfunction()"
+    onoffline="offunction()"
+    onkeyup="onkeyupfunction()"
+    onkeydown="onkeydownfunction()"
+  >
+    <!-- HTML comment: Modify all items marked xxx -->
+    <h2>Battery Status</h2>
+    <p id="chargeState">(charging state unknown)</p>
+    <p id="level">(battery level unknown)</p>
+    <p id="stateBattery">(charging state unknown)</p>
+    <h2>Online Status</h2>
+    <p id="online"></p>
+    <h2>Keyboard</h2>
+    <p id="onkeyup"></p>
+    <p id="onkeydown"></p>
+
+    <script>
+      "use strict";
+      navigator.getBattery().then((battery) => {
+          
+        });
+
+        navigator.getBattery().then((battery) => {
+          battery.onlevelchange = () => {
+            document.querySelector("#level").textContent = `${
+              battery.level * 100
+            }%`;
+            battery.onchargingchange = () => {
+            document.querySelector("#chargeState").textContent = `${
+              battery.charging ? "Charging" : "Discharging"
+            }`;
+          };
+
+            if (battery.charging) {
+              document.querySelector(
+                "#stateBattery"
+              ).textContent = `Charging time: ${battery.chargingTime / 60}`;
+            } else {
+              document.querySelector(
+                "#stateBattery"
+              ).textContent = `Discharging time: ${
+                battery.dischargingTime / 60
+              } minutes`;
+            }
+          
+            
+          };
+        });
+        
+
+      function onfunction() {
+        document.querySelector("#online").textContent = `connected -- online`;
+      }
+      function offunction() {
+        document.querySelector(
+          "#online"
+        ).textContent = `disconnected -- offline`;
+      }
+      function onkeyupfunction() {
+        document.querySelector("#onkeyup").textContent =
+          "onkeyup : " + window.event.key;
+      }
+      function onkeydownfunction() {
+        document.querySelector("#onkeydown").textContent =
+          "onkeydown : " + window.event.key;
+      }
+
+    </script>
+  </body>
+</html>
