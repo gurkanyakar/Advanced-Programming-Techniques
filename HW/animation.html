@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HW3</title>
+  </head>
+
+  <body>
+    <p id="info"></p>
+    <button id="start" onclick="start()">Start</button>
+    <button id="pause" onclick="pause()">Pause</button>
+    <button id="start" onclick="stop()">Stop</button>
+    <button id="next" onclick="nextFrame()" disabled>Next</button>
+    <button id="prev" onclick="prevFrame()" disabled>Previous</button>
+
+    <script>
+      var fix = setInterval(function () {
+        console.log(i);
+        if (running) {
+          i++;
+        }
+        if (goFirstFrame) {
+          i = 1;
+          goFirstFrame = false;
+        }
+
+        if (i >= 10) {
+          i = 1;
+        }
+        c.drawImage(images[i], 100, 100, 100, 100);
+      }, 100);
+      var running = true;
+      var goFirstFrame = false;
+      var frameChange = false;
+      var canvas = document.createElement("canvas");
+      var c = canvas.getContext("2d");
+      var i = 1;
+      var images = [];
+      images.length = 10;
+      function animate() {
+        document.body.append(canvas);
+        canvas.width = 300;
+        canvas.height = 300;
+
+        //create empty array
+
+        //push the images into array
+
+        for (var i = 1; i < images.length; i++) {
+          images[i] = new Image();
+          images[i].src = "sprite/" + i.toString() + ".png";
+        }
+        setInterval(fix, 100);
+      }
+
+      function pause() {
+        running
+          ? (running = false) & (frameChange = true)
+          : (running = true) & (frameChange = false);
+        if (frameChange) {
+          document.getElementById("next").removeAttribute("disabled");
+          document.getElementById("prev").removeAttribute("disabled");
+        } else {
+          document.getElementById("next").setAttribute("disabled", "disabled");
+          document.getElementById("prev").setAttribute("disabled", "disabled");
+        }
+        document.getElementById("info").innerHTML = "Paused";
+      }
+      function start() {
+        goFirstFrame = true;
+        running = true;
+        document.getElementById("next").setAttribute("disabled", "disabled");
+        document.getElementById("prev").setAttribute("disabled", "disabled");
+        document.getElementById("info").innerHTML = "Started";
+      }
+      function stop() {
+        running = false;
+        frameChange = true;
+        if (frameChange) {
+          document.getElementById("next").removeAttribute("disabled");
+          document.getElementById("prev").removeAttribute("disabled");
+        }
+        document.getElementById("info").innerHTML = "Stopped";
+      }
+
+      function nextFrame() {
+        i++;
+        if (i >= 10) {
+          i = 1;
+        }
+
+        document.getElementById("info").innerHTML = "Next Frame";
+      }
+      function prevFrame() {
+        i--;
+        if (i <= 1) {
+          i = 9;
+        }
+
+        document.getElementById("info").innerHTML = "Prev Frame";
+      }
+    </script>
+    <script>
+      animate();
+    </script>
+  </body>
+</html>

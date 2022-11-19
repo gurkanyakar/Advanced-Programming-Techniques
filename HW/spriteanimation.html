@@ -1,0 +1,16 @@
+<canvas width="700"></canvas>
+<script>
+    let cx = document.querySelector("canvas").getContext("2d");
+    let img = document.createElement("img");
+    img.src = "player_big.png";
+    let spriteW = 48, spriteH = 60, x=0;
+    img.addEventListener("load", function() {
+        let cycle = 0;
+        setInterval(function() {
+            cx.clearRect(0, 0, 700, 700);
+            cx.drawImage(img, cycle * spriteW, 0, spriteW, spriteH, x, 0, spriteW, spriteH);
+            x += spriteW;
+           cycle = (cycle + 1) % 8;
+        }, 100);
+    });
+</script>
