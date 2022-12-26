@@ -29,10 +29,6 @@ img {
   border: 2px solid black;
 }
 
-.mini {
-  width: 100px;
-  border: 1px solid black;
-}
 #questionNumber {
   font-family: inherit;
   margin: 10px;
@@ -69,3 +65,10 @@ button {
   border-radius: 30%;
 }
 
+.correct {
+  background-color: green;
+}
+
+.incorrect {
+  background-color: red;
+}

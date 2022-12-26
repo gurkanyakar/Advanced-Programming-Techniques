@@ -1,14 +1,21 @@
 let dataBase = [],
   questionNumber = 0,
   correctAnswers = 0,
+  incorrectAnswers = 0,
   limit = 4;
 let i, correct, countries;
 let container = document.getElementById("container");
 
 //sounds
-const correctAudioFile = new Audio("https://www.dropbox.com/s/sd52l9ghgmdga83/correct.mp3?dl=1&raw=1");
-const wrongAudioFile = new Audio("https://www.dropbox.com/s/4d5wnvvk2zyy0k7/wrong.mp3?dl=1&raw=1");
-const finishAudioFile = new Audio("https://www.dropbox.com/s/oduhqpwx130bldi/finish.mp3?dl=1&raw=1");
+const correctAudioFile = new Audio(
+  "https://www.dropbox.com/s/sd52l9ghgmdga83/correct.mp3?dl=1&raw=1"
+);
+const wrongAudioFile = new Audio(
+  "https://www.dropbox.com/s/4d5wnvvk2zyy0k7/wrong.mp3?dl=1&raw=1"
+);
+const finishAudioFile = new Audio(
+  "https://www.dropbox.com/s/oduhqpwx130bldi/finish.mp3?dl=1&raw=1"
+);
 
 fetch("https://restcountries.com/v2/all?fields=name,flag")
   .then((data) => data.json())
@@ -67,11 +74,16 @@ function flags() {
   });
 }
 
+let correctAnswersArray = [];
+let userAnswersArray = [];
+
 function testflag(el) {
   rmv();
   if (el == correct) {
     correctAudio();
     correctAnswers++;
+    correctAnswersArray.push(correct);
+    userAnswersArray.push(el);
     if (questionNumber % 10 != 0) {
       flags();
     } else {
@@ -79,9 +91,14 @@ function testflag(el) {
     }
   } else {
     wrongAudio();
-
+    incorrectAnswers++;
+    correctAnswersArray.push(correct);
+    userAnswersArray.push(el);
     if (questionNumber % 10 != 0) {
-      flags();
+      container.innerHTML += `
+      <h3>Wrong answer!</h3>
+      <h4>The correct answer is: ${correct}</h4>
+      <button onclick="flags()">Next</button>`;
     } else {
       finish();
     }
@@ -91,10 +108,38 @@ function testflag(el) {
 function finish() {
   finishAudio();
   container.innerHTML += `
-    <h1>Bravo!<br>
-    You finished the test!</h1>
     <h2>Your Score is <b>${correctAnswers}/${questionNumber}</b></h2>
+    <table>
+      <tr>
+        <th>Question</th>
+        <th>Your answer</th>
+        <th>Correct answer</th>
+        <th>Flag</th>
+      </tr>
+    </table>
     <button id="flags" onclick="flags()">Try Again</button>`;
+
+  let flagURL = "";
+  for (let i = 0; i < correctAnswersArray.length; i++) {
+    let correctCountry = dataBase.find(
+      (country) => country.name === correctAnswersArray[i]
+    );
+    flagURL = correctCountry.flag;
+    let row = document.createElement("tr");
+    row.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${userAnswersArray[i]}</td>
+        <td>${correctAnswersArray[i]}</td>
+        <td><img style="width:50px" src="${flagURL}"></td>`;
+    if (userAnswersArray[i] == correctAnswersArray[i]) {
+      row.style.backgroundColor = "lightgreen";
+    } else {
+      row.style.backgroundColor = "pink";
+    }
+    document.querySelector("table").appendChild(row);
+  }
+
   questionNumber = 0;
   correctAnswers = 0;
+  incorrectAnswers = 0;
 }
