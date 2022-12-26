@@ -5,7 +5,7 @@ table {
     align-items: center;
     margin: 0 auto;
     padding: 5%;
-    font-size: 1.5em;
+    font-size: 0.8em;
   }
   
   td, th {
@@ -36,11 +36,17 @@ table {
   }
   
 body{
+
   width: 100vw;
   height: 100vh;
   background-image: url("../../Project/assets/images/background.png");
-  background-repeat: no-repeat;
   background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+html {
+  height: 100vh;
+  width: 100vw;
 }
 
 tr:nth-child(even) {
