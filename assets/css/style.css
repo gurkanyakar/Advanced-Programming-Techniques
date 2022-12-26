@@ -35,3 +35,33 @@ table {
     }
   }
   
+body{
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../Project/assets/images/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+tr:hover {
+  background-color: #4caf50;
+}
+
+tr>td>a {
+  color: #070707;
+  text-decoration: none;
+  
+}
+tr>td>a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
