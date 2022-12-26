@@ -1,10 +1,18 @@
-let dataBase = [],
-  questionNumber = 0,
-  correctAnswers = 0,
-  incorrectAnswers = 0,
-  limit = 4;
+let dataBase = [];
+let questionNumber = 0;
+let correctAnswers = 0;
+let incorrectAnswers = 0;
+let  limit = 4;
 let i, correct, countries;
 let container = document.getElementById("container");
+
+let usernameInput = document.getElementById("usernameInput");
+let startButton = document.getElementById("startButton");
+
+// Inputa değer girildiğinde start butonunu aktif hale getir
+usernameInput.addEventListener("input", () => {
+  startButton.disabled = !usernameInput.value;
+});
 
 //sounds
 const correctAudioFile = new Audio(
@@ -47,6 +55,7 @@ function rmv() {
 }
 
 function flags() {
+  startTimer();
   rmv();
   questionNumber++;
   i = Math.floor(Math.random() * dataBase.length);
@@ -106,9 +115,12 @@ function testflag(el) {
 }
 
 function finish() {
+  startTimer();
   finishAudio();
   container.innerHTML += `
-    <h2>Your Score is <b>${correctAnswers}/${questionNumber}</b></h2>
+    <h3>${usernameInput.value},<br>
+Your Score is <b>${correctAnswers}/${questionNumber}</b><br>
+in ${timerValue} seconds.</h3>
     <table>
       <tr>
         <th>Question</th>
@@ -117,8 +129,8 @@ function finish() {
         <th>Flag</th>
       </tr>
     </table>
-    <button id="flags" onclick="flags()">Try Again</button>`;
-
+    <button id="flags" onclick="flags()">Try Again</button>
+    <button id="scoretable" onclick="scoretable()">Score Table</button>`;
   let flagURL = "";
   for (let i = 0; i < correctAnswersArray.length; i++) {
     let correctCountry = dataBase.find(
@@ -130,7 +142,7 @@ function finish() {
         <td>${i + 1}</td>
         <td>${userAnswersArray[i]}</td>
         <td>${correctAnswersArray[i]}</td>
-        <td><img style="width:50px" src="${flagURL}"></td>`;
+        <td><img style="height:50px" src="${flagURL}"></td>`;
     if (userAnswersArray[i] == correctAnswersArray[i]) {
       row.style.backgroundColor = "lightgreen";
     } else {
@@ -138,8 +150,101 @@ function finish() {
     }
     document.querySelector("table").appendChild(row);
   }
-
+  insertData();
   questionNumber = 0;
   correctAnswers = 0;
   incorrectAnswers = 0;
+  correctAnswersArray = [];
+  userAnswersArray = [];
+}
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBhZkrgkYgxUYsLZpWUXRrefmCBeBZ2-d0",
+  authDomain: "flags-of-the-world-50743.firebaseapp.com",
+  projectId: "flags-of-the-world-50743",
+  storageBucket: "flags-of-the-world-50743.appspot.com",
+  messagingSenderId: "527707393910",
+  appId: "1:527707393910:web:2eef300903b3e350cc3457",
+  measurementId: "G-D1BY73E9E4",
+};
+
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const db = app.firestore();
+
+// Retrieve data from the "Scores" collection
+/*
+db.collection("Scores")
+  .get()
+  .then((snapshot) => {
+    snapshot.forEach((doc) => {
+      console.log(doc.id, "=>", doc.data());
+    });
+  })
+  .catch((error) => {
+    console.log("Error getting documents: ", error);
+  });
+*/
+// Insert data into the "Scores" collection
+function insertData() {
+  db.collection("Scores")
+    .add({
+      name: usernameInput.value,
+      score: correctAnswers,
+      time: timerValue,
+    })
+    .then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
+    timerValue = 0;
+}
+
+// top 10 scores
+function scoretable() {
+  let rank = 1;
+  rmv();
+  container.innerHTML += `
+    <h2>Top 10 scores</h2>
+    <table>
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Score</th>
+        <th>Time</th>
+      </tr>
+    </table>
+    <button onclick="flags()">Try Again</button>`;
+  db.collection("Scores")
+    .orderBy("score", "desc").orderBy("time", "asc")
+    .limit(10)
+    .get()
+    .then((snapshot) => {
+      snapshot.forEach((doc) => {
+        let row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${rank}</td>
+          <td>${doc.data().name}</td>
+          <td>${doc.data().score}</td>
+          <td>${doc.data().time}</td>`;
+        document.querySelector("table").appendChild(row);
+        rank++;
+      });
+    });
+}
+
+
+let timer;
+let timerValue = 0;
+
+function startTimer() {
+  timer = setInterval(() => {
+    timerValue++;
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timer);
 }

@@ -25,7 +25,7 @@ html {
 }
 
 img {
-  width: 200px;
+  height: 120px;
   border: 2px solid black;
 }
 
@@ -71,4 +71,8 @@ button {
 
 .incorrect {
   background-color: red;
+}
+
+tr,td {
+  font-size: 13px;
 }
