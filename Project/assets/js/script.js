@@ -6,9 +6,9 @@ let i, correct, countries;
 let container = document.getElementById("container");
 
 //sounds
-const correctAudioSound = new Audio("../assets/audio/correct.wav");
-const wrongAudioSound = new Audio("../assets/audio/wrong.wav");
-const finishAudioSound = new Audio("../assets/audio/finish.wav");
+const correctAudioFile = new Audio("https://github.com/gurkanyakar/Advanced-Programming-Techniques/blob/main/Project/assets/audio/correct.mp3");
+const wrongAudioFile = new Audio("https://github.com/gurkanyakar/Advanced-Programming-Techniques/blob/main/Project/assets/audio/wrong.mp3");
+const finishAudioFile = new Audio("https://github.com/gurkanyakar/Advanced-Programming-Techniques/blob/main/Project/assets/audio/finish.mp3");
 
 fetch("https://restcountries.com/v2/all?fields=name,flag")
   .then((data) => data.json())
@@ -20,22 +20,23 @@ fetch("https://restcountries.com/v2/all?fields=name,flag")
     console.log(error);
   });
 
+// play the audio when the correct answer is chosen
+function correctAudio() {
+  correctAudioFile.play();
+}
 
+// play the audio when the wrong answer is chosen
+function wrongAudio() {
+  wrongAudioFile.play();
+}
+
+// play the audio when the game is finished
+function finishAudio() {
+  finishAudioFile.play();
+}
 
 function rmv() {
   container.innerHTML = "";
-}
-
-function correctAudio() {
-  correctAudioSound.play();
-}
-
-function wrongAudio() {
-  wrongAudioSound.play();
-}
-
-function finishAudio() {
-  finishAudioSound.play();
 }
 
 function flags() {
@@ -55,8 +56,8 @@ function flags() {
   countries.sort();
 
   container.innerHTML += `
-    <h1>Question number: ${questionNumber}</h1>
-    <h2>What country does this flag belongs to?</h2>
+    <h3>Question number: ${questionNumber}</h3>
+    <h4>What country does this flag belongs to?</h4>
     <img style="width:300px" src="${dataBase[i].flag}">
     <div id="buttons"></div>`;
 
