@@ -5,7 +5,8 @@ let incorrectAnswers = 0;
 let  limit = 4;
 let i, correct, countries;
 let container = document.getElementById("container");
-
+let timer;
+let timerValue = 0;
 let usernameInput = document.getElementById("usernameInput");
 let startButton = document.getElementById("startButton");
 
@@ -55,6 +56,7 @@ function rmv() {
 }
 
 function flags() {
+  timerValue = 0;
   startTimer();
   rmv();
   questionNumber++;
@@ -72,8 +74,7 @@ function flags() {
   countries.sort();
 
   container.innerHTML += `
-    <h3>Question number: ${questionNumber}</h3>
-    <h4>What country does this flag belongs to?</h4>
+    <h4>${questionNumber}-Which country does this flag belongs to?</h4>
     <img style="width:300px" src="${dataBase[i].flag}">
     <div id="buttons"></div>`;
 
@@ -115,12 +116,10 @@ function testflag(el) {
 }
 
 function finish() {
-  startTimer();
+  stopTimer();
   finishAudio();
   container.innerHTML += `
-    <h3>${usernameInput.value},<br>
-Your Score is <b>${correctAnswers}/${questionNumber}</b><br>
-in ${timerValue} seconds.</h3>
+    <h3>Your Score is <b>${correctAnswers}/${questionNumber}</b></h3>
     <table>
       <tr>
         <th>Question</th>
@@ -156,6 +155,7 @@ in ${timerValue} seconds.</h3>
   incorrectAnswers = 0;
   correctAnswersArray = [];
   userAnswersArray = [];
+  timerValue = 0;
 }
 
 const firebaseConfig = {
@@ -199,7 +199,7 @@ function insertData() {
     .catch((error) => {
       console.error("Error adding document: ", error);
     });
-    timerValue = 0;
+    
 }
 
 // top 10 scores
@@ -236,8 +236,7 @@ function scoretable() {
 }
 
 
-let timer;
-let timerValue = 0;
+
 
 function startTimer() {
   timer = setInterval(() => {
