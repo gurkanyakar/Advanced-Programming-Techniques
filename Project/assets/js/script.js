@@ -6,9 +6,9 @@ let i, correct, countries;
 let container = document.getElementById("container");
 
 //sounds
-const correctAudioFile = new Audio("https://github.com/gurkanyakar/Advanced-Programming-Techniques/blob/main/Project/assets/audio/correct.mp3");
-const wrongAudioFile = new Audio("https://github.com/gurkanyakar/Advanced-Programming-Techniques/blob/main/Project/assets/audio/wrong.mp3");
-const finishAudioFile = new Audio("https://github.com/gurkanyakar/Advanced-Programming-Techniques/blob/main/Project/assets/audio/finish.mp3");
+const correctAudioFile = new Audio("https://www.dropbox.com/s/sd52l9ghgmdga83/correct.mp3?dl=1&raw=1");
+const wrongAudioFile = new Audio("https://www.dropbox.com/s/4d5wnvvk2zyy0k7/wrong.mp3?dl=1&raw=1");
+const finishAudioFile = new Audio("https://www.dropbox.com/s/oduhqpwx130bldi/finish.mp3?dl=1&raw=1");
 
 fetch("https://restcountries.com/v2/all?fields=name,flag")
   .then((data) => data.json())
