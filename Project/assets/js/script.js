@@ -93,7 +93,7 @@ function testflag(el) {
     correctAnswers++;
     correctAnswersArray.push(correct);
     userAnswersArray.push(el);
-    if (questionNumber % 10 != 0) {
+    if (questionNumber % 7 != 0) {
       flags();
     } else {
       finish();
@@ -103,7 +103,7 @@ function testflag(el) {
     incorrectAnswers++;
     correctAnswersArray.push(correct);
     userAnswersArray.push(el);
-    if (questionNumber % 10 != 0) {
+    if (questionNumber % 7 != 0) {
       container.innerHTML += `
       <h3>Wrong answer!</h3>
       <h4>The correct answer is: ${correct}</h4>
