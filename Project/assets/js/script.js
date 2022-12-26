@@ -93,7 +93,7 @@ function testflag(el) {
     correctAnswers++;
     correctAnswersArray.push(correct);
     userAnswersArray.push(el);
-    if (questionNumber % 7 != 0) {
+    if (questionNumber % 12 != 0) {
       flags();
     } else {
       finish();
@@ -103,7 +103,7 @@ function testflag(el) {
     incorrectAnswers++;
     correctAnswersArray.push(correct);
     userAnswersArray.push(el);
-    if (questionNumber % 7 != 0) {
+    if (questionNumber % 12 != 0) {
       container.innerHTML += `
       <h3>Wrong answer!</h3>
       <h4>The correct answer is: ${correct}</h4>
@@ -142,7 +142,7 @@ in ${timerValue} seconds.</h3>
         <td>${i + 1}</td>
         <td>${userAnswersArray[i]}</td>
         <td>${correctAnswersArray[i]}</td>
-        <td><img style="height:50px" src="${flagURL}"></td>`;
+        <td><img style="width:50px" src="${flagURL}"></td>`;
     if (userAnswersArray[i] == correctAnswersArray[i]) {
       row.style.backgroundColor = "lightgreen";
     } else {
