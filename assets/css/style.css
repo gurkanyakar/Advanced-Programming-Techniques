@@ -1,12 +1,12 @@
 
 table {
-    width: 100%;
+    width: 50%;
     border-collapse: collapse;
     align-items: center;
     margin: 0 auto;
     font-size: 1.4em;
   }
-  
+
   td, th {
     border: 1px solid #ddd;
     padding: 3px;
@@ -31,6 +31,9 @@ table {
   @media only screen and (max-width: 700px) {
     .container {
       font-size: 12px;
+    }
+    table{
+      width: 100%;
     }
   }
   
