@@ -1,7 +1,7 @@
 {
   "name": "Flags of the World",
   "short_name": "Flags",
-  "start_url": "/index.html",
+  "start_url": "/project.html",
   "display": "standalone",
   "background_color": "#6dcdb1",
   "theme_color": "#009578",

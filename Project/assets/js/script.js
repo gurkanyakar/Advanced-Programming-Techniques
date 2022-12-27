@@ -16,17 +16,6 @@ usernameInput.addEventListener("input", () => {
   startButton.disabled = !usernameInput.value;
 });
 
-//sounds
-const correctAudioFile = new Audio(
-  "https://www.dropbox.com/s/sd52l9ghgmdga83/correct.mp3?dl=1&raw=1"
-);
-const wrongAudioFile = new Audio(
-  "https://www.dropbox.com/s/4d5wnvvk2zyy0k7/wrong.mp3?dl=1&raw=1"
-);
-const finishAudioFile = new Audio(
-  "https://www.dropbox.com/s/oduhqpwx130bldi/finish.mp3?dl=1&raw=1"
-);
-
 fetch("https://restcountries.com/v2/all?fields=name,flag")
   .then((data) => data.json())
   .then((result) => {
@@ -36,21 +25,6 @@ fetch("https://restcountries.com/v2/all?fields=name,flag")
     prev.innerHTML = error + " <br> Please try again later";
     console.log(error);
   });
-
-// play the audio when the correct answer is chosen
-function correctAudio() {
-  correctAudioFile.play();
-}
-
-// play the audio when the wrong answer is chosen
-function wrongAudio() {
-  wrongAudioFile.play();
-}
-
-// play the audio when the game is finished
-function finishAudio() {
-  finishAudioFile.play();
-}
 
 function rmv() {
   container.innerHTML = "";
@@ -91,7 +65,6 @@ let userAnswersArray = [];
 function testflag(el) {
   rmv();
   if (el == correct) {
-    correctAudio();
     correctAnswers++;
     correctAnswersArray.push(correct);
     userAnswersArray.push(el);
@@ -101,7 +74,6 @@ function testflag(el) {
       finish();
     }
   } else {
-    wrongAudio();
     incorrectAnswers++;
     correctAnswersArray.push(correct);
     userAnswersArray.push(el);
@@ -118,7 +90,6 @@ function testflag(el) {
 
 function finish() {
   stopTimer();
-  finishAudio();
   container.innerHTML += `
     <h3>Your Score is <b>${correctAnswers}/${questionNumber}</b></h3>
     <table>
@@ -247,7 +218,7 @@ function stopTimer() {
 }
 function serviceWork() {
   if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("assets/js/serviceWorker.js").then(registration => {
+      navigator.serviceWorker.register("serviceWorker.js").then(registration => {
           console.log("service worker registered!");
           console.log(registration);
       }).catch(err => {
