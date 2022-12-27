@@ -3,8 +3,6 @@ self.addEventListener('install', function(event) {
       caches.open('termproject').then(function(cache) {
         return cache.addAll([
           './',
-          './assets/css/style.css',
-          './assets/js/script.js',
           './assets/images/logo192.png'
         ]);
       })
