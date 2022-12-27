@@ -1,16 +1,15 @@
 
 table {
-    width: 30%;
+    width: 100%;
     border-collapse: collapse;
     align-items: center;
     margin: 0 auto;
-    padding: 5%;
-    font-size: 0.8em;
+    font-size: 1.4em;
   }
   
   td, th {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 3px;
     text-align: center;
   }
   
@@ -39,10 +38,7 @@ body{
 
   width: 100vw;
   height: 100vh;
-  background-image: url("../../Project/assets/images/background.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  overflow: hidden;
+  background-color: #c99999;
 }
 html {
   height: 100vh;
@@ -70,4 +66,3 @@ tr>td>a:hover {
   color: #ffffff;
   text-decoration: none;
 }
-
