@@ -1,4 +1,4 @@
-//serviceWork();
+serviceWork();
 let dataBase = [];
 let questionNumber = 0;
 let correctAnswers = 0;
@@ -216,7 +216,7 @@ function startTimer() {
 function stopTimer() {
   clearInterval(timer);
 }
-/*
+
 function serviceWork() {
   if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("serviceWorker.js").then(registration => {
@@ -228,4 +228,3 @@ function serviceWork() {
       })
   }
 }
-*/
