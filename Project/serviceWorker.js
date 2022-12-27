@@ -1,11 +1,7 @@
 self.addEventListener('install', function(event) {
     event.waitUntil(
       caches.open('termproject').then(function(cache) {
-        return cache.addAll([
-          './',
-          './style.css',
-          './assets/images/logo192.png'
-        ]);
+        return cache.addAll(["./", "./style.css", "./images/logo192.png"]);
       })
     );
   });
