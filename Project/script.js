@@ -213,7 +213,9 @@ function scoretable() {
 function startTimer() {
   timer = setInterval(() => {
     timerValue++;
-    document.querySelector(".timerDisplay").innerHTML = `Time: ${timerValue} seconds`;
+    document.querySelector(
+      ".timerDisplay"
+    ).innerHTML = `Time: ${timerValue} seconds`;
   }, 1000);
 }
 
@@ -223,12 +225,15 @@ function stopTimer() {
 
 function serviceWork() {
   if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("serviceWorker.js").then(registration => {
-          console.log("service worker registered!");
-          console.log(registration);
-      }).catch(err => {
-          console.log("service worker registration failed!");
-          console.log(err);
+    navigator.serviceWorker
+      .register("serviceWorker.js")
+      .then((registration) => {
+        console.log("service worker registered!");
+        console.log(registration);
       })
+      .catch((err) => {
+        console.log("service worker registration failed!");
+        console.log(err);
+      });
   }
 }

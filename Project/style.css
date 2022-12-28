@@ -23,18 +23,6 @@ img {
   border: 2px solid black;
 }
 
-#questionNumber {
-  font-family: inherit;
-  margin: 10px;
-  text-align: center;
-}
-
-#question {
-  font-family: inherit;
-  margin: 10px;
-  text-align: center;
-}
-
 button {
   background-color: #6fc071;
   color: black;
@@ -78,10 +66,10 @@ table {
   width: 100%;
 }
 
-th, td {
+th,
+td {
   text-align: left;
   padding: 8px;
-
 }
 
 tr:nth-child(even) {
@@ -93,7 +81,7 @@ tr:nth-child(odd) {
 }
 
 th {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   font-weight: 800;
 }
