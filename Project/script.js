@@ -31,8 +31,9 @@ function rmv() {
 }
 
 function flags() {
-  timerValue = 0;
-  startTimer();
+  if (questionNumber == 0) {
+    startTimer();
+  }
   rmv();
   questionNumber++;
   i = Math.floor(Math.random() * dataBase.length);
@@ -49,8 +50,9 @@ function flags() {
   countries.sort();
 
   container.innerHTML += `
+  <h3 class="timerDisplay"></h3>
     <h4>${questionNumber}-Which country does this flag belongs to?</h4>
-    <img style="width:300px" src="${dataBase[i].flag}">
+    <img style="width:250px" src="${dataBase[i].flag}">
     <div id="buttons"></div>`;
 
   countries.map((country) => {
@@ -79,6 +81,7 @@ function testflag(el) {
     userAnswersArray.push(el);
     if (questionNumber % 7 != 0) {
       container.innerHTML += `
+      <h3 class="timerDisplay"></h3>
       <h3>Wrong answer!</h3>
       <h4>The correct answer is: ${correct}</h4>
       <button onclick="flags()">Next</button>`;
@@ -92,7 +95,8 @@ function finish() {
   stopTimer();
   container.innerHTML += `
     <h3>Your Score is <b>${correctAnswers}/${questionNumber}</b></h3>
-    <table>
+    <h3 class="timerDisplay"></h3>
+    <table style="width:80%; margin: 0 auto;">
       <tr>
         <th>Question</th>
         <th>Your answer</th>
@@ -113,7 +117,7 @@ function finish() {
         <td>${i + 1}</td>
         <td>${userAnswersArray[i]}</td>
         <td>${correctAnswersArray[i]}</td>
-        <td><img style="width:50px" src="${flagURL}"></td>`;
+        <td><img style="width:30px" src="${flagURL}"></td>`;
     if (userAnswersArray[i] == correctAnswersArray[i]) {
       row.style.backgroundColor = "lightgreen";
     } else {
@@ -206,10 +210,10 @@ function scoretable() {
       });
     });
 }
-
 function startTimer() {
   timer = setInterval(() => {
     timerValue++;
+    document.querySelector(".timerDisplay").innerHTML = `Time: ${timerValue} seconds`;
   }, 1000);
 }
 

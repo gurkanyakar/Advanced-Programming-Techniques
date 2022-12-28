@@ -36,17 +36,19 @@ img {
 }
 
 button {
-  background-color: #e7e7e7;
+  background-color: #6fc071;
   color: black;
   border: none;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   font-size: 16px;
-  margin: 4px 2px;
+  font-weight: 700;
   cursor: pointer;
   display: block;
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 3px;
 }
 
 .correct {
